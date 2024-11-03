@@ -22,24 +22,25 @@ form.onsubmit = (event) => {
 
   switch (currency.value) {
     case "USD":
-      convertCurency(amount.value, USD, "US$");
+      convertCurrency(amount.value, USD, "US$");
       break;
 
     case "EUR":
-      convertCurency(amount.value, EUR, "€");
+      convertCurrency(amount.value, EUR, "€");
       break;
 
     case "GBP":
-      convertCurency(amount.value, GBP, "£");
+      convertCurrency(amount.value, GBP, "£");
       break;
   }
 
 }
 
 // Função para converter a moeda
-function convertCurency (amount, price,symbol) {
+function convertCurrency (amount, price,symbol) {
   try {
-    description.textContent = `${symbol} 1 = ${price}`
+    // Exibindo cotação
+    description.textContent = `${symbol} 1 = ${formatCurrencyBRL(price)}`
 
     // Classe que aplica o footer (resultado)
     footer.classList.add("show-result")   
@@ -50,4 +51,13 @@ function convertCurency (amount, price,symbol) {
     console.log(error)
     alert("Não foi possível converter. Tente novamente mais tarde")
   }
+}
+
+// Formatar moeda para real brasileiro
+function formatCurrencyBRL (value) {
+  // Converter variável para número e usar a função toLocaleString
+  return Number(value).toLocaleString("pt-Bt", {
+    style: "currency",
+    currency: "BRL",
+  })
 }
